@@ -1,0 +1,34 @@
+import webbrowser
+
+import pandas as pd
+from IPython.display import display
+from tabulate import tabulate
+
+## Inputs
+my_name = "Karl-Johan Westhoff"
+
+## read all sheets 
+xls = pd.ExcelFile('ImmersionMingle.xlsx')
+
+Immersion_names = xls.parse("Participants")
+
+## Dict to hold classes
+classes = {}
+
+## loop through the sheets and save the data
+
+for sheet in xls.sheet_names:
+    if sheet == "Participants":
+        continue ## Skip it..
+
+    ## Stuff the data into a dataframe    
+    df = xls.parse(sheet)
+    
+    ## Dig out my class
+    my_class = df.loc[df['Name']==my_name]['Class']
+
+    print(type(my_class))
+    print(my_class)
+    
+    # print(df.loc[df['Class']==my_class])
+    ## Find the names from that class that is also in the Immersion list
